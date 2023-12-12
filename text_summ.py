@@ -1,5 +1,7 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration,pipeline
 import PyPDF2
+
+
 def extract_text_from_pdf(pdf_path):
     with open(pdf_path, 'rb') as file:
         pdf_reader = PyPDF2.PdfReader(file)
@@ -12,6 +14,8 @@ def extract_text_from_pdf(pdf_path):
 pdf_path = "C:/farewell/rabbit.pdf"
 pdf_text = extract_text_from_pdf(pdf_path)
 print(pdf_text)
+
+
 def generate_summary_and_sentiment(input_text):
     # Sentiment analysis pipeline
     sentiment_analyzer = pipeline('sentiment-analysis', model='nlptown/bert-base-multilingual-uncased-sentiment')
@@ -35,10 +39,16 @@ def generate_summary_and_sentiment(input_text):
     summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
 
     return summary, sentiment_label, sentiment_score
+
+
+
+
 pdf_path = "C:/farewell/rabbit.pdf"
 pdf_text = extract_text_from_pdf(pdf_path)
 summary, sentiment_label, sentiment_score = generate_summary_and_sentiment(pdf_text)
 #print(f"Summary: {summary}\nSentiment: {sentiment_label} (Score: {sentiment_score:.2f})")
+
+
 
 
 from gtts import gTTS
