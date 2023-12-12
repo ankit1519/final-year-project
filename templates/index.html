@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarization UI</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <h1>Text Summarization System</h1>
+    <form id="pdfForm" enctype="multipart/form-data">
+        <label for="pdfFile">Upload PDF File:</label>
+        <input type="file" id="pdfFile" name="pdf" accept=".pdf" required>
+        <button type="button" onclick="processPdf()">Process PDF</button>
+    </form>
+
+    <div id="results" style="display: none;">
+        <h2>Results</h2>
+        <div id="pdfText"></div>
+        <div id="summary"></div>
+        <div id="sentiment"></div>
+        <audio controls id="audioPlayer"></audio>
+    </div>
+
+    <script>
+        function processPdf() {
+            const form = document.getElementById('pdfForm');
+            const formData = new FormData(form);
+
+            fetch('/process', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('pdfText').innerText = 'PDF Text: ' + data.pdfText;
+                document.getElementById('summary').innerText = 'Summary: ' + data.summary;
+                document.getElementById('sentiment').innerText = `Sentiment: ${data.sentimentLabel} (Score: ${data.sentimentScore.toFixed(2)})`;
+
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = data.audioPath;
+
+                // Show results
+                document.getElementById('results').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
