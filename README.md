@@ -42,12 +42,12 @@ This project is designed to perform text summarization on uploaded PDF files. Us
 Clone the repository and set up the virtual environment.
 
 ```bash
-git clone https://github.com/yourusername/your_project.git
-cd your_project
+git clone https://github.com/ankit1519/final-year-project
+cd final-year-project
 python -m venv venv
 source venv/bin/activate  # On Linux/Mac
 venv\Scripts\activate  # On Windows
-pip install -r requirements.txt
+
 ```
 ## Usage
 Run the Flask application to launch the web interface.
